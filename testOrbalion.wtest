@@ -1,0 +1,111 @@
+import orbalion.*
+
+describe "Test 1 checkpoint"{
+
+  test "Un entrenador no puede tener un rol no homologado" {
+    assert.throwsExceptionWithMessage(
+      "Rol no homologado por la FOZ",
+      {
+        new Entrenador(
+          cantidadCicloSolar = 5,
+          enSintoniaConEquipo = true,
+          nivelPrecisionEstrategica = 80,
+          rol = "Capitan Galactico"
+        )
+      }
+    )
+  }
+ 
+ test "Un equipo lumínico con radiación > 5000 y sin tecnologías activas"{
+    const unEntrenador = new Entrenador(
+    cantidadCicloSolar = 5,
+    enSintoniaConEquipo = true,
+    nivelPrecisionEstrategica = 80,
+    rol = "Estratega Cuántico"
+  )
+
+  const equipo = new Luminicos(
+    nombre = "Solar",
+    nivelEnergiaBase = 100,
+    entrenador = unEntrenador,
+    nivelRadiacion = 6000
+  )
+
+
+    assert.equals(100, equipo.energiaTotal())
+ }
+
+ test "Un luminico con radiacion menor a 5000 obtiene el bono del 10 por ciento" {
+    const entrenador = new Entrenador(
+      cantidadCicloSolar = 5,
+      enSintoniaConEquipo = true,
+      nivelPrecisionEstrategica = 80,
+      rol = "Estratega Cuántico"
+    )
+
+    const luminicos = new Luminicos(
+      nombre = "Luminoso",
+      nivelEnergiaBase = 100,
+      entrenador = entrenador,
+      nivelRadiacion = 4000
+    )
+
+    assert.equals(110, luminicos.energiaTotal())
+  }
+  /*puedo poner en const el nombre del equipo */
+
+test "Un sintetico con 6 modulos recibe la penalizacion del 20 por ciento" {
+    const entrenador = new Entrenador(
+      cantidadCicloSolar = 5,
+      enSintoniaConEquipo = true,
+      nivelPrecisionEstrategica = 80,
+      rol = "Estratega Cuántico"
+    )
+
+    const equipo = new Sinteticos(
+      nombre = "Sintetico Alfa",
+      nivelEnergiaBase = 100,
+      entrenador = entrenador,
+      nivelProcesamientoCentral = 800,
+      modulosActivos = 6,
+      estaCertificado = true
+    )
+
+    assert.equals(80, equipo.energiaTotal())
+  }
+
+  test "Un sintetico con 4 modulos suma la energia de sus tecnologias activas" {
+    const entrenador = new Entrenador(
+      cantidadCicloSolar = 5,
+      enSintoniaConEquipo = true,
+      nivelPrecisionEstrategica = 80,
+      rol = "Estratega Cuántico"
+    )
+
+    const tecnologia1 = new Tecnologia(
+      nombre = "Nucleo gravitacional",
+      valorEnergetico = 10,
+      activa = true
+    )
+
+    const tecnologia2 = new Tecnologia(
+      nombre = "Camara de fusion",
+      valorEnergetico = 20,
+      activa = true
+    )
+
+    const equipo = new Sinteticos(
+      nombre = "Sintetico Beta",
+      nivelEnergiaBase = 100,
+      entrenador = entrenador,
+      nivelProcesamientoCentral = 800,
+      modulosActivos = 4,
+      estaCertificado = true,
+      listaTecnologiasComplementarias = [tecnologia1, tecnologia2]
+    )
+
+    assert.equals(130, equipo.energiaTotal())
+  }
+
+}
+
