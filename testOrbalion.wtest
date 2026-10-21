@@ -109,3 +109,14 @@ test "Un sintetico con 6 modulos recibe la penalizacion del 20 por ciento" {
 
 }
 
+describe "test 2 checkpoint"{
+    test "Estratega cuántico con 12 ciclos y precisión 90 → es de élite galáctica."{
+        const entrenador = new Entrenador(
+         cantidadCicloSolar = 12,
+      enSintoniaConEquipo = true,
+      nivelPrecisionEstrategica = 90,
+      rol = "Estratega Cuántico" 
+        )
+        assert.that(entrenador.esDeElite())
+    }
+}

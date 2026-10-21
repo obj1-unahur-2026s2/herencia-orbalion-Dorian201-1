@@ -43,6 +43,16 @@ class Sinteticos inherits Equipo {
 class Etericos inherits Equipo{
  var fluctuacionDimensional
  var cantidadPortalesAbiertos
+
+ method prestigioUniversal()= 
+ (fluctuacionDimensional > 75) && (cantidadPortalesAbiertos >=2) && (listaTecnologiasComplementarias.filter({t => t.activa()}).size() >=2)
+
+ override method energiaTotal()=
+ if (self.prestigioUniversal()){
+   super() + (super() *0.15)
+ }else{
+   super()
+ }
 }
 
 class Entrenador {
@@ -58,6 +68,13 @@ method initialize(){
       throw new Exception(message = "Rol no homologado por la FOZ")
     }
 }
+method esDeElite()=
+cantidadCicloSolar > 10 && 
+ 
+(rol == "Estratega Cuántico" &&nivelPrecisionEstrategica > 80) ||
+(rol == "Arquitecto de Energía" && enSintoniaConEquipo) ||
+(rol == "Guía Mental" )
+  
 }
 
 class Tecnologia{
